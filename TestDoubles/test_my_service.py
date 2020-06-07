@@ -25,3 +25,17 @@ def test_single_sign_on_with_invalid_token(stub_registry):
     response = service.handle(Request("Emily"), token)
     stub_registry.is_valid.assert_called_with(token)
     assert response.text == "Please sign in"
+
+def confirm_token(correct_token):
+    def is_valid(actual_token):
+        if actual_token != correct_token:
+            raise ValueError("Wrong Token Received!")
+    return is_valid
+
+def test_single_sign_on_receives_correct_token(stub_registry):
+    correct_token = SSOToken()
+    stub_registry.is_valid = Mock(side_effect=confirm_token(correct_token))
+    service = MyService(stub_registry)
+    service.handle(Request("Emily"), correct_token)
+    stub_registry.is_valid.assert_called()
+    
