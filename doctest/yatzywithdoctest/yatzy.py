@@ -1,10 +1,18 @@
-## Derived from Pluralsight Course Unit Testing with Python
-## by Emily Bache
+"""
+    yatzy.py
+    --------
+
+    This module containscode from Emily Bache's Pluralsight unit testing with python course.
+    
+"""
 import random
 
 def roll(number_of_dice=5):
     """
     Roll the indicated number of six sided dice using a random number generator.
+
+    :param number_of_dice: The number of dice to roll.
+    :return: The list of `number_of_dice` values in sorted order.
 
     Examples
     --------

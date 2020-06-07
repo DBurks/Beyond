@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>yatzy &#8212; Yatzy 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for yatzy</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    yatzy.py</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    This module containscode from Emily Bache&#39;s Pluralsight unit testing with python course.</span>
+<span class="sd">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<div class="viewcode-block" id="roll"><a class="viewcode-back" href="../yatzy.html#yatzy.roll">[docs]</a><span class="k">def</span> <span class="nf">roll</span><span class="p">(</span><span class="n">number_of_dice</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Roll the indicated number of six sided dice using a random number generator.</span>
+
+<span class="sd">    :param number_of_dice: The number of dice to roll.</span>
+<span class="sd">    :return: The list of `number_of_dice` values in sorted order.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; random.seed(42)</span>
+<span class="sd">    &gt;&gt;&gt; roll(3)</span>
+<span class="sd">    [1, 1, 6]</span>
+<span class="sd">    &gt;&gt;&gt; roll()</span>
+<span class="sd">    [2, 2, 2, 3, 6]</span>
+<span class="sd">    &gt;&gt;&gt; roll()</span>
+<span class="sd">    [1, 5, 6, 6, 6]</span>
+<span class="sd">    &gt;&gt;&gt; roll(10)</span>
+<span class="sd">    [1, 1, 1, 1, 2, 2, 4, 5, 5, 5]</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_dice</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="small_straight"><a class="viewcode-back" href="../yatzy.html#yatzy.small_straight">[docs]</a><span class="k">def</span> <span class="nf">small_straight</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Score the given roll in the &#39;small straight&#39; category.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    &gt;&gt;&gt; small_straight([1,2,3,4,5])</span>
+<span class="sd">    15</span>
+<span class="sd">    &gt;&gt;&gt; small_straight([1,2,3,4,4])</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; small_straight({1,2,3,4,5})</span>
+<span class="sd">    15</span>
+<span class="sd">    &gt;&gt;&gt; small_straight([1,2,5,4,3])</span>
+<span class="sd">    15</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dice</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dice</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="chance"><a class="viewcode-back" href="../yatzy.html#yatzy.chance">[docs]</a><span class="k">def</span> <span class="nf">chance</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Score the given roll in the &#39;Chance&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; chance([5,5,5,5,5])</span>
+<span class="sd">    25</span>
+<span class="sd">    &gt;&gt;&gt; chance([1,2,3,4,5])</span>
+<span class="sd">    15</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dice</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="four_of_a_kind"><a class="viewcode-back" href="../yatzy.html#yatzy.four_of_a_kind">[docs]</a><span class="k">def</span> <span class="nf">four_of_a_kind</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Score the given roll in the &#39;Four of a kind&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; four_of_a_kind([1,6,6,6,6])</span>
+<span class="sd">    24</span>
+<span class="sd">    &gt;&gt;&gt; four_of_a_kind([1,1,6,6,6])</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">dice_counts</span><span class="p">(</span><span class="n">dice</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">i</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="dice_counts"><a class="viewcode-back" href="../yatzy.html#yatzy.dice_counts">[docs]</a><span class="k">def</span> <span class="nf">dice_counts</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Count up the number of dice with each value.</span>
+
+<span class="sd">    &gt;&gt;&gt; dice_counts([1,2,3,4,5])</span>
+<span class="sd">    [0, 1, 1, 1, 1, 1, 0]</span>
+<span class="sd">    &gt;&gt;&gt; dice_counts([6,6,6,6,6])</span>
+<span class="sd">    [0, 0, 0, 0, 0, 0, 5]</span>
+<span class="sd">    &gt;&gt;&gt; dice_counts([4,4,3,3,3])</span>
+<span class="sd">    [0, 0, 0, 3, 2, 0, 0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">dice</span><span class="p">:</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">counts</span></div>
+
+<div class="viewcode-block" id="score"><a class="viewcode-back" href="../yatzy.html#yatzy.score">[docs]</a><span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the given face value in the roll.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; score([3,3,3,1,2], 3)</span>
+<span class="sd">    9</span>
+<span class="sd">    &gt;&gt;&gt; score([3,3,3,1,2], 2)</span>
+<span class="sd">    2</span>
+<span class="sd">    &gt;&gt;&gt; score([3,3,3,1,2], 1)</span>
+<span class="sd">    1</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dice_counts</span><span class="p">(</span><span class="n">dice</span><span class="p">)[</span><span class="n">value</span><span class="p">]</span><span class="o">*</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="ones"><a class="viewcode-back" href="../yatzy.html#yatzy.ones">[docs]</a><span class="k">def</span> <span class="nf">ones</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Ones&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ones([2,3,4,5,6])</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; ones([4,3,2,1,1])</span>
+<span class="sd">    2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="twos"><a class="viewcode-back" href="../yatzy.html#yatzy.twos">[docs]</a><span class="k">def</span> <span class="nf">twos</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Twos&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; twos([2,3,4,5,6])</span>
+<span class="sd">    2</span>
+<span class="sd">    &gt;&gt;&gt; twos([4,3,2,1,1])</span>
+<span class="sd">    2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="threes"><a class="viewcode-back" href="../yatzy.html#yatzy.threes">[docs]</a><span class="k">def</span> <span class="nf">threes</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Threes&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; threes([2,3,4,5,6])</span>
+<span class="sd">    3</span>
+<span class="sd">    &gt;&gt;&gt; threes([4,2,2,1,1])</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="fours"><a class="viewcode-back" href="../yatzy.html#yatzy.fours">[docs]</a><span class="k">def</span> <span class="nf">fours</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Fours&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; fours([2,3,2,5,6])</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; fours([4,4,2,1,1])</span>
+<span class="sd">    8</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="fives"><a class="viewcode-back" href="../yatzy.html#yatzy.fives">[docs]</a><span class="k">def</span> <span class="nf">fives</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Fives&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; fives([5,5,1,2,3])</span>
+<span class="sd">    10</span>
+<span class="sd">    &gt;&gt;&gt; fives([4,3,2,1,1])</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="sixes"><a class="viewcode-back" href="../yatzy.html#yatzy.sixes">[docs]</a><span class="k">def</span> <span class="nf">sixes</span><span class="p">(</span><span class="n">dice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scores the roll in the &#39;Sixes&#39; category.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; sixes([2,3,4,5,6])</span>
+<span class="sd">    6</span>
+<span class="sd">    &gt;&gt;&gt; sixes([4,3,2,1,1])</span>
+<span class="sd">    0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">score</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Yatzy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../yatzy.html">yatzy module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Author Joe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
