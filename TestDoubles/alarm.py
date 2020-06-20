@@ -1,4 +1,5 @@
 from sensor import Sensor
+from abc import ABC, abstractmethod
 
 class Alarm:
     def __init__(self, sensor=None):
